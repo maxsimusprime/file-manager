@@ -1,0 +1,27 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "description": "File Manager based on Node.js APIs",
+  "main": "./src/index.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxsimusprime/file-manager.git"
+  },
+  "keywords": [
+    "file-manager"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/maxsimusprime/file-manager/issues"
+  },
+  "homepage": "https://github.com/maxsimusprime/file-manager#readme"
+}
