@@ -54,16 +54,18 @@ const run = async () => {
         if (cmd.split(" ").length !== 2) {
           readlineInterface.write("Invalid input" + EOL);
         } else {
-          const path = cmd.split(" ")[1];
-          cwd = getAbsolutePath(cwd, path);
-        }
-        break;
-
-      case "cat":
-        if (cmd.split(" ").length !== 2) {
-          readlineInterface.write("Invalid input" + EOL);
-        } else {
-          workerPath = getAbsolutePath(process.cwd(), "./src/fs/readFile.js");
+          await new Promise((response) => {
+            const worker = new Worker("./src/nav/getNewCwd.js", {
+              workerData: { cmd, cwd },
+            });
+            worker.on("message", (data) => {
+              cwd = data;
+              response("OK");
+            });
+            worker.on("error", () => response("Operation failed"));
+          })
+            .then((data) => readlineInterface.write(data + EOL))
+            .catch((err) => readlineInterface.write(err));
         }
         break;
 
@@ -71,7 +73,10 @@ const run = async () => {
         if (cmd.split(" ").length !== 1) {
           readlineInterface.write("Invalid input" + EOL);
         } else {
-          workerPath = getAbsolutePath(process.cwd(), "./src/nav/getDirList.js");
+          workerPath = getAbsolutePath(
+            process.cwd(),
+            "./src/nav/getDirList.js"
+          );
         }
         break;
 
