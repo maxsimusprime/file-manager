@@ -199,6 +199,16 @@ const runWT = async () => {
           );
         }
         break;
+      case "rn":
+        if (cmd.split(" ").length !== 3) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          workerPath = getAbsolutePath(
+            process.cwd(),
+            "./src/fs/renameFile.js"
+          );
+        }
+        break;
       default:
         readlineInterface.write("Invalid input" + EOL);
         break;
