@@ -4,11 +4,12 @@ import { createInterface } from "node:readline/promises";
 import getUserNameFromArgs from "./utils/getUserNameFromArgs.js";
 import { Worker } from "node:worker_threads";
 import getAbsolutePath from "./utils/getAbsolutePath.js";
+import { sep, join, normalize } from "node:path";
 
 const run = async () => {
   const userName = getUserNameFromArgs();
 
-  const cwd = homedir();
+  let cwd = homedir();
 
   const readlineInterface = createInterface({ input, output });
 
@@ -19,19 +20,42 @@ const run = async () => {
 
   process.on("exit", () => {
     readlineInterface.write(
-      `${EOL}Thank you for using File Manager, ${userName}, goodbye!`
+      `${EOL}Thank you for using File Manager, ${userName}, goodbye!👻`
     );
     exit();
   });
 
   while (true) {
-    const cmd = await readlineInterface.question(">_ ");
+    const cmd = await readlineInterface.question(
+      "Print commands and wait → → →  "
+    );
     const operationName = cmd.split(" ")[0];
     let workerPath;
 
     switch (operationName) {
       case ".exit":
         exit();
+      case "up":
+        if (cmd.split(" ").length !== 1) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          const arrFromPath = cwd.split(sep);
+          if (arrFromPath.length > 1) {
+            cwd = join(...arrFromPath.slice(0, -1));
+          }
+          if (arrFromPath.length === 2) {
+            cwd = normalize(cwd.replace('.', '\\'))
+          }
+        }
+        break;
+      case "cd":
+        if (cmd.split(" ").length !== 2) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          const path = cmd.split(" ")[1];
+          cwd = getAbsolutePath(cwd, path);
+        }
+        break;
       case "cat":
         if (cmd.split(" ").length !== 2) {
           readlineInterface.write("Invalid input" + EOL);
