@@ -259,6 +259,16 @@ const runWT = async () => {
           );
         }
         break;
+      case "compress":
+        if (cmd.split(" ").length !== 3) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          workerPath = getAbsolutePath(
+            process.cwd(),
+            "./src/zip/compress.js"
+          );
+        }
+        break;
       default:
         readlineInterface.write("Invalid input" + EOL);
         break;
