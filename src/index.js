@@ -229,6 +229,16 @@ const runWT = async () => {
           );
         }
         break;
+      case "rm":
+        if (cmd.split(" ").length !== 2) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          workerPath = getAbsolutePath(
+            process.cwd(),
+            "./src/fs/deleteFile.js"
+          );
+        }
+        break;
       default:
         readlineInterface.write("Invalid input" + EOL);
         break;
