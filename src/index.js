@@ -219,6 +219,16 @@ const runWT = async () => {
           );
         }
         break;
+      case "mv":
+        if (cmd.split(" ").length !== 3) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          workerPath = getAbsolutePath(
+            process.cwd(),
+            "./src/fs/moveFile.js"
+          );
+        }
+        break;
       default:
         readlineInterface.write("Invalid input" + EOL);
         break;
