@@ -6,6 +6,7 @@ import InvalidInputError from "./types/InvalidInputError.js";
 // import readFile from "./fs/readFile.js";
 import { spawn } from "node:child_process";
 import { Worker } from "node:worker_threads";
+import getAbsolutePath from "./utils/getAbsolutePath.js";
 
 const run1 = async () => {
   const userName = getUserNameFromArgs();
@@ -185,7 +186,17 @@ const runWT = async () => {
         if (cmd.split(" ").length !== 2) {
           readlineInterface.write("Invalid input" + EOL);
         } else {
-          workerPath = "./src/fs/readFile.js";
+          workerPath = getAbsolutePath(process.cwd(), "./src/fs/readFile.js");
+        }
+        break;
+      case "add":
+        if (cmd.split(" ").length !== 2) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          workerPath = getAbsolutePath(
+            process.cwd(),
+            "./src/fs/createEmptyFile.js"
+          );
         }
         break;
       default:
