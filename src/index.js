@@ -249,6 +249,16 @@ const runWT = async () => {
           );
         }
         break;
+      case "hash":
+        if (cmd.split(" ").length !== 2) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          workerPath = getAbsolutePath(
+            process.cwd(),
+            "./src/hash/hash.js"
+          );
+        }
+        break;
       default:
         readlineInterface.write("Invalid input" + EOL);
         break;
