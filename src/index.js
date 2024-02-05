@@ -35,6 +35,7 @@ const run = async () => {
     switch (operationName) {
       case ".exit":
         exit();
+
       case "up":
         if (cmd.split(" ").length !== 1) {
           readlineInterface.write("Invalid input" + EOL);
@@ -44,10 +45,11 @@ const run = async () => {
             cwd = join(...arrFromPath.slice(0, -1));
           }
           if (arrFromPath.length === 2) {
-            cwd = normalize(cwd.replace('.', '\\'))
+            cwd = normalize(cwd.replace(".", "\\"));
           }
         }
         break;
+
       case "cd":
         if (cmd.split(" ").length !== 2) {
           readlineInterface.write("Invalid input" + EOL);
@@ -56,6 +58,7 @@ const run = async () => {
           cwd = getAbsolutePath(cwd, path);
         }
         break;
+
       case "cat":
         if (cmd.split(" ").length !== 2) {
           readlineInterface.write("Invalid input" + EOL);
@@ -63,6 +66,23 @@ const run = async () => {
           workerPath = getAbsolutePath(process.cwd(), "./src/fs/readFile.js");
         }
         break;
+
+      case "ls":
+        if (cmd.split(" ").length !== 1) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          workerPath = getAbsolutePath(process.cwd(), "./src/nav/getDirList.js");
+        }
+        break;
+
+      case "cat":
+        if (cmd.split(" ").length !== 2) {
+          readlineInterface.write("Invalid input" + EOL);
+        } else {
+          workerPath = getAbsolutePath(process.cwd(), "./src/fs/readFile.js");
+        }
+        break;
+
       case "add":
         if (cmd.split(" ").length !== 2) {
           readlineInterface.write("Invalid input" + EOL);
@@ -73,6 +93,7 @@ const run = async () => {
           );
         }
         break;
+
       case "rn":
         if (cmd.split(" ").length !== 3) {
           readlineInterface.write("Invalid input" + EOL);
@@ -80,6 +101,7 @@ const run = async () => {
           workerPath = getAbsolutePath(process.cwd(), "./src/fs/renameFile.js");
         }
         break;
+
       case "cp":
         if (cmd.split(" ").length !== 3) {
           readlineInterface.write("Invalid input" + EOL);
@@ -87,6 +109,7 @@ const run = async () => {
           workerPath = getAbsolutePath(process.cwd(), "./src/fs/copyFile.js");
         }
         break;
+
       case "mv":
         if (cmd.split(" ").length !== 3) {
           readlineInterface.write("Invalid input" + EOL);
@@ -94,6 +117,7 @@ const run = async () => {
           workerPath = getAbsolutePath(process.cwd(), "./src/fs/moveFile.js");
         }
         break;
+
       case "rm":
         if (cmd.split(" ").length !== 2) {
           readlineInterface.write("Invalid input" + EOL);
@@ -101,6 +125,7 @@ const run = async () => {
           workerPath = getAbsolutePath(process.cwd(), "./src/fs/deleteFile.js");
         }
         break;
+
       case "os":
         if (cmd.split(" ").length !== 2) {
           readlineInterface.write("Invalid input" + EOL);
@@ -108,6 +133,7 @@ const run = async () => {
           workerPath = getAbsolutePath(process.cwd(), "./src/os/os.js");
         }
         break;
+
       case "hash":
         if (cmd.split(" ").length !== 2) {
           readlineInterface.write("Invalid input" + EOL);
@@ -115,6 +141,7 @@ const run = async () => {
           workerPath = getAbsolutePath(process.cwd(), "./src/hash/hash.js");
         }
         break;
+
       case "compress":
         if (cmd.split(" ").length !== 3) {
           readlineInterface.write("Invalid input" + EOL);
@@ -122,6 +149,7 @@ const run = async () => {
           workerPath = getAbsolutePath(process.cwd(), "./src/zip/compress.js");
         }
         break;
+
       case "decompress":
         if (cmd.split(" ").length !== 3) {
           readlineInterface.write("Invalid input" + EOL);
